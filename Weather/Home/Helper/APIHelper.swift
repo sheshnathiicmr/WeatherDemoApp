@@ -16,12 +16,12 @@ typealias APICompletionHandler = (Result<Data,APIRequestError>) -> Void
 class APIHelper {
     
     
-    private let baseURL = "https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=53.2734&lon=-7.77832031"
+    private let baseURL = "https://api.met.no/weatherapi/locationforecast/2.0/classic?"
     
     static let shared = APIHelper()
 
-    func getWeatherInfo(completionHandler: @escaping APICompletionHandler) {
-        var request = URLRequest(url: URL(string: self.baseURL)!)
+    func getWeatherInfo(latitude:String, longitude:String, completionHandler: @escaping APICompletionHandler) {
+        var request = URLRequest(url: URL(string: "\(self.baseURL)lat=\(latitude)&lon=\(longitude)")!)
             request.httpMethod = "GET"
             let session = URLSession.shared
             session.dataTask(with: request) {data, response, err in

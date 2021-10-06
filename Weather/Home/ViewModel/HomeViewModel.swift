@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+//MARK:- Enum
 enum HomeScreenState: Equatable {
     
     static func == (lhs: HomeScreenState, rhs: HomeScreenState) -> Bool {
@@ -41,11 +42,13 @@ enum HomeScreenState: Equatable {
     }
 }
 
+//MARK:- Protocol
 protocol HomeViewModelDelegate {
     func stateChange(newState:HomeScreenState)
 }
 
 
+//MARK:- ViewModel class
 class HomeViewModel: NSObject {
         
     private let locationManager = CLLocationManager()
@@ -89,20 +92,23 @@ class HomeViewModel: NSObject {
     }
 }
 
+//MARK:- CLLocationManagerDelegate
 extension HomeViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             self.locationManager.requestLocation()
     }
   
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            //print("lat: \(location.coordinate.latitude)")
-            //print("long: \(location.coordinate.longitude)")
+            //let latitude = location.coordinate.latitude
+            //let longitude = location.coordinate.longitude
+            let latitude = 53.2734
+            let longitude = -7.77832031
+            
             if self.currentState == .requestLocationPermission {
                 self.currentState = .fetchingWeatherInfo
-                APIHelper.shared.getWeatherInfo { result in
+                APIHelper.shared.getWeatherInfo(latitude: "\(latitude)", longitude: "\(longitude)") { result in
                     switch result {
                     case .success(let responseData):
                         self.currentState = .parsingWeatherInfo
@@ -123,6 +129,7 @@ extension HomeViewModel: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Opps!!!Location access error")
         self.currentState = .error
     }
 }

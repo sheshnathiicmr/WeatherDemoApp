@@ -22,11 +22,11 @@ class ResponseParser {
         let xml = XML.parse(data)
         var weatherInfos:[WeatherInfo] = []
          for time in xml["weatherdata","product","time"] {
-            //print(time.attributes["from"])
-            //print(time.attributes["to"])
-            guard let from = time.attributes["from"] else { return }
-            guard let to =  time.attributes["to"] else { return }
-            weatherInfos.append(WeatherInfo(from: from, to: to))
+            if let temperature = time["location","temperature"].attributes["value"] {
+                guard let from = time.attributes["from"] else { return }
+                guard let to =  time.attributes["to"] else { return }
+                weatherInfos.append(WeatherInfo(from: from, to: to,temperature: temperature))
+            }
          }
         completionHandler(.success(weatherInfos))
     }

@@ -12,6 +12,7 @@ class WeatherTableViewCell: UITableViewCell {
     @IBOutlet weak var fromLabel: UILabel!
     
     @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,7 +20,8 @@ class WeatherTableViewCell: UITableViewCell {
 
 
     func config(weatherInfo:WeatherInfo)  {
-        self.fromLabel.text = weatherInfo.from
-        self.toLabel.text = weatherInfo.to
+        self.fromLabel.text = "From: \(weatherInfo.from ?? "")"
+        self.toLabel.text = "To: \(weatherInfo.to ?? "")"
+        self.temperatureLabel.text = "Temperature: \(weatherInfo.temperature ?? "" )"
     }
 }

@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     //MARK:- ViewLifeCycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Weather Info"
         self.tableView.isHidden = true
         self.tableView.estimatedRowHeight = 88.0
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -25,6 +26,7 @@ class HomeViewController: UIViewController {
     }
 }
 
+//MARK:- UITableViewDataSource
 extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,6 +40,7 @@ extension HomeViewController: UITableViewDataSource {
     }
 }
 
+//MARK:- HomeViewModelDelegate
 extension HomeViewController: HomeViewModelDelegate {
     
     func stateChange(newState:HomeScreenState) {

@@ -11,10 +11,12 @@ class WeatherInfo {
     
     var from:String!
     var to:String!
+    var temperature:String!
     
-    init(from:String, to:String) {
+    init(from:String, to:String, temperature:String) {
         self.from = from
         self.to = to
+        self.temperature = temperature
     }
     
 }
