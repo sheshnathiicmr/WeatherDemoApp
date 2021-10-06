@@ -101,11 +101,8 @@ extension HomeViewModel: CLLocationManagerDelegate {
   
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            //let latitude = location.coordinate.latitude
-            //let longitude = location.coordinate.longitude
-            let latitude = 53.2734
-            let longitude = -7.77832031
-            
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
             if self.currentState == .requestLocationPermission {
                 self.currentState = .fetchingWeatherInfo
                 APIHelper.shared.getWeatherInfo(latitude: "\(latitude)", longitude: "\(longitude)") { result in

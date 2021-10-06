@@ -44,7 +44,6 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: HomeViewModelDelegate {
     
     func stateChange(newState:HomeScreenState) {
-        print("new state: \(newState)")
         switch newState {
         case .weatherDataAvailable(_):
             self.tableView.isHidden = false
